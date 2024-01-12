@@ -1,48 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using MazePong.Controls;
-using MazePong.Helpers;
+﻿using MazePong.Controls;
 using MazePong.PongObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using System;
 
-namespace MazePong.GameStates {
-    public interface IPongGameState {
-        GameState Tag { get; }
-    }
-
-    public class PongGameState : GameState, IPongGameState {
-        Texture2D backgroundImage;
+namespace MazePong.SwingObjects {
+    public class PongPhysicsManager(Game game, ControlManager controlManager) : PhysicsManager(game, controlManager) {
         Texture2D ballImage;
-        private int totalItems;
         private ContentManager Content;
         private Bumper bumper;
         private PongBall ball;
         private SoundEffect hitSound;
         private SoundEffect wallHitSound;
-
         private float _frames;
 
-        public int TotalItems {
-            get { return totalItems; }
-            set { totalItems = value; }
-        }
-
-        public PongGameState(Game game) : base(game) {
-            Game.Services.AddService<IPongGameState>(this);
-        }
-
         public override void LoadContent() {
-            base.LoadContent();
-
             Content = Game.Content;
 
-            backgroundImage = Content.Load<Texture2D>(@"Backgrounds/ingamebackground");
             Texture2D bumperImage = Content.Load<Texture2D>(@"bumper");
             ballImage = Content.Load<Texture2D>(@"ballimage");
             hitSound = Content.Load<SoundEffect>(@"Sounds/hit");
@@ -54,17 +30,18 @@ namespace MazePong.GameStates {
 
             bumper = new(bumperImage);
             ControlManager.Add(bumper);
-
-            LoadUI();
         }
 
         private void Ball_WallHit(object sender, EventArgs e) {
             wallHitSound.Play();
         }
 
+        public override void RemoveControls() {
+            ControlManager.Remove(ball);
+            ControlManager.Remove(bumper);
+        }
+
         public override void Initialize() {
-            base.Initialize();
-            
             ControlManager.Remove(ball);
 
             ball = new(ballImage, new Vector2(Settings.BaseWidth / 2 + 250, Settings.BaseHeight / 2), new Vector2(0, 0));
@@ -116,32 +93,11 @@ namespace MazePong.GameStates {
             return component * Vector2.Normalize(projectedOnto);
         }
 
-        public void LoadUI() {
-        }
-
         public override void Update(GameTime gameTime) {
-            base.Update(gameTime);
             CheckCollisions();
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                MainMenu();
-        }
-
-        public void MainMenu() {
-            TitleState state = (TitleState)Game.Services.GetService<ITitleState>();
-            StateManager.ChangeState(state);
         }
 
         public override void Draw(GameTime gameTime) {
-            SpriteBatch spriteBatch = Game.Services.GetService<SpriteBatch>();
-
-            spriteBatch.Draw(
-                backgroundImage,
-                Settings.BaseRectangle,
-                Color.White
-            );
-
-            base.Draw(gameTime);
         }
     }
 }

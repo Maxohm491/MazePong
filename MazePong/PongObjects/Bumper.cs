@@ -40,8 +40,10 @@ namespace MazePong.PongObjects {
 
         public Bumper(Texture2D image) {
             bumperImage = image;
-            radius = image.Width / 2;
-            diameter = image.Width;
+            //radius = image.Width / 2;
+            //diameter = image.Width;
+            radius = image.Width;
+            diameter = image.Width * 2;
         }
 
         private Vector2 mouseToClampedPosition(Point point) {

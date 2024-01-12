@@ -50,7 +50,8 @@ namespace MazePong.GameStates {
         }
 
         private void PongButton_Selected(object sender, EventArgs e) {
-            PongGameState state = (PongGameState)Game.Services.GetService<IPongGameState>();
+            IngameState state = (IngameState)Game.Services.GetService<IIngameState>();
+            state.SetPhysicsType(IngameState.PhysicsType.Pong);
 
             StateManager.ChangeState(state);
         }

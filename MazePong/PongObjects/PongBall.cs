@@ -15,8 +15,8 @@ namespace MazePong.PongObjects {
             Vector2 displacement = position - otherPosition;
             float temp = Vector2.Dot(velocity - otherVelocity, displacement) / displacement.Length();
 
-            //Vector2 toSurface = Vector2.Normalize(displacement) * (otherRadius + radius + 5);
-            //position = otherCurr + toSurface;
+            Vector2 toSurface = Vector2.Normalize(displacement) * (otherRadius + radius + 5);
+            position = otherCurr + toSurface;
 
             velocity -= (Vector2.Normalize(displacement) * temp * 2f);
         }

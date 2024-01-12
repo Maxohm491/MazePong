@@ -68,6 +68,9 @@ namespace MazePong.GameStates {
                 case PhysicsType.Gravity:
                     physicsManager = new GravityPhysicsManager(Game, ControlManager);
                     break;
+                case PhysicsType.Pong:
+                    physicsManager = new PongPhysicsManager(Game, ControlManager); 
+                    break;
             }
 
             physicsManager.LoadContent();

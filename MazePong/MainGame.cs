@@ -13,9 +13,7 @@ namespace MazePong {
         private RenderTarget2D _renderTarget;
 
         private readonly TitleState _titleState;
-        private readonly PongGameState _pongGameState;
-        private readonly GravityGameState _gravityGameState;
-        private readonly IngameState _swingGameState;
+        private readonly IngameState _ingameState;
 
         public MainGame() {
             _graphics = new GraphicsDeviceManager(this);
@@ -37,14 +35,10 @@ namespace MazePong {
             Window.ClientSizeChanged += OnResize;
 
             _titleState = new(this);
-            _pongGameState = new(this);
-            _gravityGameState = new(this);
-            _swingGameState = new(this);
+            _ingameState = new(this);
 
             GameStateManager.NewState(_titleState);
-            GameStateManager.NewState(_pongGameState);
-            GameStateManager.NewState(_gravityGameState);
-            GameStateManager.NewState(_swingGameState);
+            GameStateManager.NewState(_ingameState);
         }
 
         protected override void Initialize() {
