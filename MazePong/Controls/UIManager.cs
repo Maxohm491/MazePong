@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MazePong.Controls {
-    public class ControlManager : List<Control> {
+    public class UIManager : List<Drawable> {
         public void Update(GameTime gameTime, PlayerIndex playerIndex) {
             if (Count == 0)
                 return;
-            foreach (Control c in this) {
+            foreach (Drawable c in this) {
                 if (c.Enabled) {
                     c.Update(gameTime);
                     c.HandleInput();
@@ -21,7 +21,7 @@ namespace MazePong.Controls {
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            foreach (Control c in this) {
+            foreach (Drawable c in this) {
                 if (c.Visible) {
                     c.Draw(spriteBatch);
                 }

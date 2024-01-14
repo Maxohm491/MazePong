@@ -8,14 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MazePong.Controls {
-    public abstract class Control {
+    public abstract class Control : Drawable{
         protected string name;
         protected string text;
         protected Vector2 size;
-        protected Vector2 position;
         protected object value;
-        protected bool enabled;
-        protected bool visible;
         protected SpriteFont spriteFont;
 
         protected Color color;
@@ -46,14 +43,6 @@ namespace MazePong.Controls {
             get { return value; }
             set { this.value = value; }
         }
-        public bool Enabled {
-            get { return enabled; }
-            set { enabled = value; }
-        }
-        public bool Visible {
-            get { return visible; }
-            set { visible = value; }
-        }
         public SpriteFont SpriteFont {
             get { return spriteFont; }
             set { spriteFont = value; }
@@ -72,10 +61,6 @@ namespace MazePong.Controls {
             Enabled = true;
             Visible = true;
         }
-
-        public abstract void Update(GameTime gameTime);
-        public abstract void Draw(SpriteBatch spriteBatch);
-        public abstract void HandleInput();
 
         protected virtual void OnSelected(EventArgs e) {
             Selected?.Invoke(this, e);

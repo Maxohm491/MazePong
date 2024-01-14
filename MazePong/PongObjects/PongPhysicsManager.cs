@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace MazePong.SwingObjects {
-    public class PongPhysicsManager(Game game, ControlManager controlManager) : PhysicsManager(game, controlManager) {
+    public class PongPhysicsManager(Game game, UIManager controlManager) : PhysicsManager(game, controlManager) {
         Texture2D ballImage;
         private ContentManager Content;
         private Bumper bumper;
@@ -34,6 +34,10 @@ namespace MazePong.SwingObjects {
 
         private void Ball_WallHit(object sender, EventArgs e) {
             wallHitSound.Play();
+        }
+
+        public override Ball GetBall() {
+            return ball;
         }
 
         public override void RemoveControls() {

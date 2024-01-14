@@ -25,8 +25,8 @@ namespace MazePong {
 
             Components.Add(new InputManager(this));
 
-            this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
+            IsFixedTimeStep = true;
+            TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
 
             GameStateManager = new GameStateManager(this);
             Services.AddService(typeof(GameStateManager), GameStateManager);
@@ -68,9 +68,7 @@ namespace MazePong {
         }
 
         protected override void Update(GameTime gameTime) {
-            // TODO: Add your update logic here
             GameStateManager.Update(gameTime);
-
 
             base.Update(gameTime);
         }

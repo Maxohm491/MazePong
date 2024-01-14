@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MazePong {
     public abstract class PhysicsManager {
-        protected ControlManager controls;
+        protected UIManager controls;
         protected Game Game { get; set; }
-        public ControlManager ControlManager { get { return controls; } }
+        public UIManager ControlManager { get { return controls; } }
 
-        public PhysicsManager(Game game, ControlManager controlManager) {
+        public PhysicsManager(Game game, UIManager controlManager) {
             Game = game;
             controls = controlManager;
         }
@@ -21,7 +21,7 @@ namespace MazePong {
         public abstract void Initialize();
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(GameTime gameTime);
-
+        public abstract Ball GetBall();
         public abstract void RemoveControls();
     }
 }

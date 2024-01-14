@@ -8,9 +8,9 @@ namespace MazePong.GameStates {
 
     public abstract partial class GameState {
         protected SpriteBatch SpriteBatch { get; set; }
-        protected ControlManager controls;
+        protected UIManager controls;
         protected Game Game { get; set; }
-        public ControlManager ControlManager { get { return controls; } }
+        public UIManager ControlManager { get { return controls; } }
         private bool Enabled;
         private bool Visible;
 

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using MazePong.Controls;
 using MazePong.Helpers;
+using MazePong.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -51,6 +52,7 @@ namespace MazePong.GameStates {
 
         private void PongButton_Selected(object sender, EventArgs e) {
             IngameState state = (IngameState)Game.Services.GetService<IIngameState>();
+            state.SetLevel(new AvoidanceLevel(Game));
             state.SetPhysicsType(IngameState.PhysicsType.Pong);
 
             StateManager.ChangeState(state);

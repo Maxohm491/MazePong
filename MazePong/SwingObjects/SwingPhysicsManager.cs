@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MazePong.SwingObjects {
-    public class SwingPhysicsManager(Game game, ControlManager controlManager) : PhysicsManager(game, controlManager){
+    public class SwingPhysicsManager(Game game, UIManager controlManager) : PhysicsManager(game, controlManager){
         Texture2D ballImage;
         private ContentManager Content;
         private SwingBall ball;
@@ -60,6 +60,10 @@ namespace MazePong.SwingObjects {
 
         private void Ball_FlippedDirection(object sender, EventArgs e) {
             flippedSound.Play();
+        }
+
+        public override Ball GetBall() {
+            return ball;   
         }
 
         public override void RemoveControls() {

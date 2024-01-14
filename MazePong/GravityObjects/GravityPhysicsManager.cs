@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MazePong.SwingObjects {
-    public class GravityPhysicsManager(Game game, ControlManager controlManager) : PhysicsManager(game, controlManager) {
+    public class GravityPhysicsManager(Game game, UIManager controlManager) : PhysicsManager(game, controlManager) {
         private ContentManager Content;
         private Texture2D ballImage;
         private GravityBall ball;
@@ -56,6 +56,10 @@ namespace MazePong.SwingObjects {
 
         public override void RemoveControls() {
             ControlManager.Remove(ball);
+        }
+
+        public override Ball GetBall() {
+            return ball;
         }
 
         public override void Initialize() {

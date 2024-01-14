@@ -21,6 +21,7 @@ namespace MazePong.GameStates {
     public class IngameState : GameState, IIngameState {
         private Texture2D backgroundImage;
         private PhysicsManager physicsManager;
+        private Level level;
 
         public enum PhysicsType { 
             Swing,
@@ -42,10 +43,14 @@ namespace MazePong.GameStates {
             base.Initialize();
 
             physicsManager.Initialize();
+            level.Initialize();
         }
 
         public override void Update(GameTime gameTime) {
             physicsManager.Update(gameTime);
+            level.Update();
+
+            level.CheckCollisions(physicsManager.GetBall().Position);
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 MainMenu();
@@ -74,6 +79,17 @@ namespace MazePong.GameStates {
             }
 
             physicsManager.LoadContent();
+        }
+
+        public void SetLevel(Level newLevel) {
+            if (level != null) {
+                ControlManager.Remove(level.Objects);
+            }
+
+            level = newLevel;
+
+            level.LoadContent();
+            ControlManager.Add(level.Objects);
         }
 
         public override void Draw(GameTime gameTime) {
